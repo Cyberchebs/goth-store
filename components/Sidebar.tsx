@@ -1,6 +1,7 @@
-// components/Sidebar.tsx
-import {Product} from "@/sanity.types";
+
 'use client';
+import {Product} from "@/sanity.types";
+
 
 type SelectedFilters = {
   gender: string[];
@@ -34,16 +35,16 @@ const Sidebar = ({ isOpen, onClose ,selectedFilters,
     const hasActiveFilters = Object.values(selectedFilters).some(arr => arr.length > 0);
 
    return (
-    <div className={`fixed inset-0 z-40 flex ${!isOpen && 'pointer-events-none'}`}>
-      {/* Backdrop */}
+    <>
+      {/* Mobile backdrop */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black/40" onClick={onClose} />
+        <div className="fixed inset-0 bg-black/40 z-40 lg:hidden" onClick={onClose} />
       )}
 
-      {/* Panel */}
+      {/* Sidebar panel */}
       <aside
-        className={`relative z-50 w-64 bg-white h-full shadow-xl transition-transform duration-300
-          ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`fixed lg:sticky top-0 left-0 z-50 lg:z-0 w-64 bg-white h-screen lg:h-auto shadow-xl transition-transform duration-300
+          ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
       >
         <div className="flex items-center justify-between p-4 border-b">
           <h2 className="font-semibold text-lg">Filters</h2>
@@ -56,11 +57,11 @@ const Sidebar = ({ isOpen, onClose ,selectedFilters,
                 Clear all
               </button>
             )}
-            <button onClick={onClose} aria-label="Close sidebar">✕</button>
+            <button onClick={onClose} className="lg:hidden" aria-label="Close sidebar">✕</button>
           </div>
         </div>
 
-        <div className="p-4 space-y-6 overflow-y-auto">
+        <div className="p-4 space-y-6 overflow-y-auto max-h-[calc(100vh-5rem)]">
           {/* Gender — hardcoded, always male/female */}
           <FilterGroup
             label="Gender"
@@ -81,7 +82,7 @@ const Sidebar = ({ isOpen, onClose ,selectedFilters,
           />
         </div>
       </aside>
-    </div>
+    </>
   );
 };
 

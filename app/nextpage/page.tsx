@@ -42,8 +42,11 @@ const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
  }, [])
 
  const availablCategories = useMemo(() => {
-  const unique = new Set(product.map(p => p.category).filter(Boolean));
-  return Array.from(unique);
+  const categories = product
+    .map(p => p.category)
+    .filter((cat): cat is NonNullable<typeof cat> => cat !== null && cat !== undefined);
+  const unique = new Set(categories);
+  return Array.from(unique) as string[];
  },[product]);
  console.log("categories",availablCategories);
 
@@ -72,20 +75,29 @@ const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
   
 
   return (
-    <div >
-      <button onClick={toggleSidebar}  className="lg:hidden fixed bottom-6 right-6 bg-black text-white px-6 py-3 rounded-full shadow-lg z-50 flex items-center gap-2 hover:bg-gray-800 transition-colors">
-        filter
+    <div className="min-h-screen">
+      {/* Mobile filter button */}
+      <button 
+        onClick={toggleSidebar}  
+        className="lg:hidden fixed bottom-6 right-6 bg-black text-white px-6 py-3 rounded-full shadow-lg z-50 flex items-center gap-2 hover:bg-gray-800 transition-colors"
+      >
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+        </svg>
+        Filters
       </button>
+
+      {/* Main layout */}
       <div className="flex flex-row">
-         <Sidebar
+        <Sidebar
           isOpen={sidebarOpen}
           onClose={closeSidebar}
           selectedFilters={selectedFilters}
-          availableCategories={availablCategories}  // derived from real data
+          availableCategories={availablCategories}
           onFilterChange={handleFilterChange}
           onClearFilters={clearFilters}
         />
-      <Feed/>
+        <Feed products={filteredProducts} />
       </div>
     </div>
   )
