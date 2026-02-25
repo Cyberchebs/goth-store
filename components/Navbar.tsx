@@ -31,7 +31,7 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 w-full">
-            {/* Left: Men & Women */}
+            
             <div className="flex items-center space-x-9">
               <a href="#" className={`text-sm font-medium transition-colors duration-300 ${
                 isScrolled ? 'text-gray-700 hover:text-gray-900' : 'text-gray-800 hover:text-black'
@@ -45,7 +45,7 @@ export default function Navbar() {
               </a>
             </div>
 
-            {/* Center: Logo */}
+        
             <div className="absolute left-1/2 transform -translate-x-1/2">
               <h1 className={`text-2xl font-bold transition-colors duration-300 ${
                 isScrolled ? 'text-gray-900' : 'text-gray-900'
@@ -54,7 +54,7 @@ export default function Navbar() {
               </h1>
             </div>
 
-            {/* Right: Avatar & Shopping Bag */}
+  
             <div className="flex items-center space-x-6">
               <button className="transition-colors duration-300">
                 <svg className={`w-6 h-6 ${isScrolled ? 'text-gray-700' : 'text-gray-800'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
