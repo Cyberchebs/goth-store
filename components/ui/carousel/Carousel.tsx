@@ -236,7 +236,7 @@ export default function Carousel({
         position: 'relative',
         overflow: 'hidden',
         borderRadius: round ? '50%' : '16px',
-        background: '#ffffff',
+        background: 'transparent',
         padding: containerPadding,
         border: '2px solid black',
       }}
