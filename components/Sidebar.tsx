@@ -1,7 +1,4 @@
-
 'use client';
-import {Product} from "@/sanity.types";
-
 
 type SelectedFilters = {
   gender: string[];
@@ -22,31 +19,46 @@ const GENDER_OPTIONS = [
   { value: 'female', label: 'Female' },
 ];
 
-
-
-
-
-const Sidebar = ({ isOpen, onClose ,selectedFilters,
+const Sidebar = ({
+  isOpen,
+  onClose,
+  selectedFilters,
   availableCategories,
   onFilterChange,
   onClearFilters,
 }: SidebarProps) => {
+  const hasActiveFilters = Object.values(selectedFilters).some(arr => arr.length > 0);
 
-    const hasActiveFilters = Object.values(selectedFilters).some(arr => arr.length > 0);
-
-   return (
+  return (
     <>
       {/* Mobile backdrop */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black/40 z-40 lg:hidden" onClick={onClose} />
+        <div
+          className="fixed inset-0 bg-black/40 z-40 lg:hidden"
+          onClick={onClose}
+        />
       )}
 
-      {/* Sidebar panel */}
+      {/* Sidebar panel
+          Mobile: fixed slide-in drawer
+          Desktop: normal in-flow column, fills the flex row height, scrolls its own content */}
       <aside
-        className={`fixed lg:sticky top-0 left-0 z-50 lg:z-0 w-64 bg-white h-screen lg:h-auto shadow-xl transition-transform duration-300
-          ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
+        className={`
+          fixed lg:relative
+          top-0 left-0
+          z-50 lg:z-0
+          w-64 shrink-0
+          h-full
+          bg-white
+          border-r border-gray-100
+          shadow-xl lg:shadow-none
+          flex flex-col
+          transition-transform duration-300
+          ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+        `}
       >
-        <div className="flex items-center justify-between p-4 border-b">
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b shrink-0">
           <h2 className="font-semibold text-lg">Filters</h2>
           <div className="flex items-center gap-3">
             {hasActiveFilters && (
@@ -57,12 +69,14 @@ const Sidebar = ({ isOpen, onClose ,selectedFilters,
                 Clear all
               </button>
             )}
-            <button onClick={onClose} className="lg:hidden" aria-label="Close sidebar">✕</button>
+            <button onClick={onClose} className="lg:hidden" aria-label="Close sidebar">
+              ✕
+            </button>
           </div>
         </div>
 
-        <div className="p-4 space-y-6 overflow-y-auto max-h-[calc(100vh-5rem)]">
-          {/* Gender — hardcoded, always male/female */}
+        {/* Scrollable filter content */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-6">
           <FilterGroup
             label="Gender"
             options={GENDER_OPTIONS}
@@ -70,12 +84,11 @@ const Sidebar = ({ isOpen, onClose ,selectedFilters,
             onChange={(value) => onFilterChange('gender', value)}
           />
 
-          {/* Category — dynamic from your Sanity data */}
           <FilterGroup
             label="Category"
             options={availableCategories.map(cat => ({
               value: cat,
-              label: cat.charAt(0).toUpperCase() + cat.slice(1), // capitalize
+              label: cat.charAt(0).toUpperCase() + cat.slice(1),
             }))}
             selected={selectedFilters.category}
             onChange={(value) => onFilterChange('category', value)}
@@ -115,6 +128,5 @@ const FilterGroup = ({ label, options, selected, onChange }: FilterGroupProps) =
     </div>
   </div>
 );
-
 
 export default Sidebar;

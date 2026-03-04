@@ -1,5 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import vice1 from  "../public/vice1.jpg";
+import vice2 from "../public/vice2.jpg";
 
 const containers = () => {
   return (
@@ -7,8 +10,40 @@ const containers = () => {
         <div className='h-full w-full flex flex-col items-center justify-center gap-10'>
             <h3 className='text-5xl font-bold im-fell-english-regular'>pick ur <span className="unifrakturmaguntia-regular text-6xl">vice</span></h3>
             <div className='flex w-full flex-row p-7 max-md:flex-col justify-between max-md:gap-4 items-center'>
-                <Link href="/nextpage"><div className='w-160 h-80 max-md:w-full max-md:h-40 bg-black'></div></Link>
-                <Link href="/nextpage"><div className="w-160 h-80 max-md:w-full max-md:h-40 bg-black"></div></Link>
+                
+                <Link href="/nextpage">
+                    <div className='relative w-160 h-80 max-md:w-full max-md:h-40 bg-black overflow-hidden group'>
+                      <Image
+                        src={vice1}
+                        alt="Vice 1"
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-300 flex items-center justify-center">
+                        <span className="text-white text-3xl font-bold opacity-0 unifrakturmaguntia-regular group-hover:opacity-100 transition-opacity duration-300">
+                          Female
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+
+
+               <Link href="/nextpage">
+                    <div className='relative w-160 h-80 max-md:w-full max-md:h-40 bg-black overflow-hidden group'>
+                      <Image
+                        src={vice2}
+                        alt="Vice 1"
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-x-0 bottom-0 h-0 group-hover:h-full bg-black/60  overflow-hidden transition-all duration-300 ease-in-out flex items-center justify-center">
+                        <span className="text-white unifrakturmaguntia-regular text-3xl font-bold">
+                              Male
+                            </span>
+                          </div>
+                    </div>
+                  </Link>
+
             </div>
         </div>
     </div>
