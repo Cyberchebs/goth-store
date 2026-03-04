@@ -11,7 +11,7 @@ const containers = () => {
             <h3 className='text-5xl font-bold im-fell-english-regular'>pick ur <span className="unifrakturmaguntia-regular text-6xl">vice</span></h3>
             <div className='flex w-full flex-row p-7 max-md:flex-col justify-between max-md:gap-4 items-center'>
                 
-                <Link href="/nextpage">
+                <Link href="/nextpage?gender=female">
                     <div className='relative w-160 h-80 max-md:w-full max-md:h-40 bg-black overflow-hidden group'>
                       <Image
                         src={vice1}
@@ -28,7 +28,7 @@ const containers = () => {
                   </Link>
 
 
-               <Link href="/nextpage">
+               <Link href="/nextpage?gender=male">
                     <div className='relative w-160 h-80 max-md:w-full max-md:h-40 bg-black overflow-hidden group'>
                       <Image
                         src={vice2}
